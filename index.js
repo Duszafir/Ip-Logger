@@ -58,7 +58,7 @@ rl.question('Link del destino: ', async (targetUrl) => {
         const targetUrl = links.get(id);
 
         if (!targetUrl) {
-            return res.sendFile(path.join(__dirname, 'public', '404.html'));
+            return res.redirect(targetUrl);
         }
 
         const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
