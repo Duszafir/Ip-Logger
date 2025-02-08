@@ -1,5 +1,3 @@
-Aquí tienes un ejemplo de un archivo `README.md` que explica los pasos de cómo usar tu proyecto, con decoraciones para hacerlo más atractivo:
-
 ```markdown
 # IP Logger con Express y Ngrok
 
