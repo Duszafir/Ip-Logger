@@ -1,5 +1,5 @@
 ```markdown
-# IP Logger con Express y Ngrok
+# IP Logger con Js y Ngrok
 
 ¡Bienvenido al **IP Logger**! Este proyecto te permite generar enlaces cortos que redirigen a una URL de destino específica.
 Además, podrás ver la **IP** de la persona que hace clic en el enlace. Aquí te dejamos los pasos para que puedas utilizarlo fácilmente.
