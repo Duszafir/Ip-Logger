@@ -4,6 +4,8 @@ const readline = require('readline');
 const path = require('path');
 const ngrok = require('ngrok');
 const chalk = require('chalk');
+const fetch = require('node-fetch'); // Agregar esto si usas Node.js <18
+
 const app = express();
 const PORT = 8080;
 
@@ -30,7 +32,6 @@ async function startNgrok() {
     }
 }
 
-// Limpiar la consola y agregar decoración
 console.clear();
 console.log(chalk.green("¡Iniciando el servidor!"));
 console.log(chalk.yellow("Preparando la conexión con ngrok..."));
@@ -47,9 +48,9 @@ rl.question('Link del destino: ', async (targetUrl) => {
 
     const publicUrl = await startNgrok();
     const BASE_URL = publicUrl;
+    const shortUrl = `${BASE_URL}/${id}`;
 
     app.post('/generate', (req, res) => {
-        const shortUrl = `${BASE_URL}/${id}`;
         res.json({ shortUrl });
     });
 
@@ -70,9 +71,14 @@ rl.question('Link del destino: ', async (targetUrl) => {
     });
 
     app.listen(PORT, '0.0.0.0', () => {
-        const shortUrl = `${BASE_URL}/${id}`;
         console.log(chalk.green(`Servidor corriendo en ${BASE_URL}`));
         console.log(chalk.magenta(`Enlace corto generado: ${shortUrl}`));
+    });
+
+    fetch(shortUrl, {
+        headers: {
+            'ngrok-skip-browser-warning': 'true'
+        }
     });
 
     rl.close();
