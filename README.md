@@ -84,24 +84,10 @@ Antes de comenzar, asegúrate de tener instalados los siguientes paquetes:
 
 ---
 
-## Decoración visual ✨
-
-🎉 ¡Lo lograste! Ahora tienes un IP Logger funcionando con **Express** y **Ngrok**. Aquí algunos consejos extra:
+## Recomendaciones
 
 - Si deseas cambiar el puerto por defecto, simplemente edita el archivo `index.js` y cambia el valor de `PORT`.
 - Puedes agregar más personalización en la página 404 (`public/404.html`) para que sea más divertida.
-
----
-
-## Contribuciones 💻
-
-Si quieres contribuir, no dudes en hacer un **pull request**. ¡Estamos abiertos a ideas nuevas!
-
----
-
-## Licencia
-
-Este proyecto está bajo la Licencia MIT. ¡Siéntete libre de usarlo como desees!
 
 ---
 
@@ -109,4 +95,3 @@ Este proyecto está bajo la Licencia MIT. ¡Siéntete libre de usarlo como desee
 
 ```
 
-Este archivo `README.md` explica los pasos de uso del proyecto de una manera clara, amigable y con algunas decoraciones visuales. Puedes personalizarlo aún más según lo que necesites. ¡Espero que te sirva!
