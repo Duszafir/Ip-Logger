@@ -3,6 +3,7 @@ const fs = require('fs');
 const readline = require('readline');
 const path = require('path');
 const ngrok = require('ngrok');
+const chalk = require('chalk');  // Requiere la librería chalk
 const app = express();
 const PORT = 8080;
 
@@ -24,14 +25,19 @@ async function startNgrok() {
         });
         return publicUrl;
     } catch (err) {
-        console.error("Error al conectar con ngrok: ", err);
+        console.error(chalk.red("Error al conectar con ngrok: "), err);
         process.exit(1);
     }
 }
 
+// Limpiar la consola y agregar decoración
+console.clear();
+console.log(chalk.green("¡Iniciando el servidor!"));
+console.log(chalk.yellow("Preparando la conexión con ngrok..."));
+
 rl.question('Link del destino: ', async (targetUrl) => {
     if (!targetUrl) {
-        console.log('Falta la URL de destino');
+        console.log(chalk.red('Falta la URL de destino'));
         rl.close();
         return;
     }
@@ -56,17 +62,17 @@ rl.question('Link del destino: ', async (targetUrl) => {
         }
 
         const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        console.log("----------------------------------------------------------");
-        console.log(`IP: ${ip} - URL: ${targetUrl}`);
-        console.log("----------------------------------------------------------");
+        console.log(chalk.cyan("----------------------------------------------------------"));
+        console.log(chalk.blue(`IP: ${ip} - URL: ${targetUrl}`));
+        console.log(chalk.cyan("----------------------------------------------------------"));
 
         res.redirect(targetUrl);
     });
 
     app.listen(PORT, '0.0.0.0', () => {
         const shortUrl = `${BASE_URL}/${id}`;
-        console.log(`Servidor corriendo en ${BASE_URL}`);
-        console.log(`Enlace corto generado: ${shortUrl}`);
+        console.log(chalk.green(`Servidor corriendo en ${BASE_URL}`));
+        console.log(chalk.magenta(`Enlace corto generado: ${shortUrl}`));
     });
 
     rl.close();
