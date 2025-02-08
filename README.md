@@ -61,7 +61,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes paquetes:
    Después de proporcionar la URL de destino, se generará un enlace corto. Este enlace será algo como:
 
    ```
-   http://<tu-url-publica-ngrok>/abcdefg
+   https://<tu-url-publica-ngrok>/abcdefg
    ```
 
    ¡Este es el enlace que puedes compartir con tus amigos!
