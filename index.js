@@ -1,21 +1,35 @@
 const express = require('express');
 const fs = require('fs');
 const readline = require('readline');
+const path = require('path');
+const ngrok = require('ngrok');
 const app = express();
-const PORT = 3000;
-
-const BASE_URL = 'http://localhost:' + PORT;
+const PORT = 8080;
 
 const links = new Map();
 
 app.use(express.json());
+app.use(express.static('public'));
 
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-rl.question('Por favor ingrese un enlace de destino: ', (targetUrl) => {
+async function startNgrok() {
+    try {
+        const publicUrl = await ngrok.connect({
+            addr: PORT,
+            log_level: 'error'
+        });
+        return publicUrl;
+    } catch (err) {
+        console.error("Error al conectar con ngrok: ", err);
+        process.exit(1);
+    }
+}
+
+rl.question('Link del destino: ', async (targetUrl) => {
     if (!targetUrl) {
         console.log('Falta la URL de destino');
         rl.close();
@@ -25,8 +39,12 @@ rl.question('Por favor ingrese un enlace de destino: ', (targetUrl) => {
     const id = Math.random().toString(36).substring(7);
     links.set(id, targetUrl);
 
+    const publicUrl = await startNgrok();
+    const BASE_URL = publicUrl;
+
     app.post('/generate', (req, res) => {
-        res.json({ shortUrl: `${BASE_URL}/${id}` });
+        const shortUrl = `${BASE_URL}/${id}`;
+        res.json({ shortUrl });
     });
 
     app.get('/:id', (req, res) => {
@@ -34,21 +52,21 @@ rl.question('Por favor ingrese un enlace de destino: ', (targetUrl) => {
         const targetUrl = links.get(id);
 
         if (!targetUrl) {
-            return res.status(404).send('Error 404: Enlace no encontrado');
+            return res.sendFile(path.join(__dirname, 'public', '404.html'));
         }
 
-        // Registra la IP de quien accede al enlace
         const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        console.log("-----------------------------")
+        console.log("----------------------------------------------------------");
         console.log(`IP: ${ip} - URL: ${targetUrl}`);
-        console.log("-----------------------------")
+        console.log("----------------------------------------------------------");
 
         res.redirect(targetUrl);
     });
 
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
+        const shortUrl = `${BASE_URL}/${id}`;
         console.log(`Servidor corriendo en ${BASE_URL}`);
-        console.log(`Enlace corto generado: ${BASE_URL}/${id}`);
+        console.log(`Enlace corto generado: ${shortUrl}`);
     });
 
     rl.close();
