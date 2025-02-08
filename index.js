@@ -3,7 +3,7 @@ const fs = require('fs');
 const readline = require('readline');
 const path = require('path');
 const ngrok = require('ngrok');
-const chalk = require('chalk');  // Requiere la librería chalk
+const chalk = require('chalk');
 const app = express();
 const PORT = 8080;
 
