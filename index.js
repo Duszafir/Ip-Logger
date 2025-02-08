@@ -58,7 +58,7 @@ rl.question('Link del destino: ', async (targetUrl) => {
         const targetUrl = links.get(id);
 
         if (!targetUrl) {
-            return res.redirect(targetUrl);
+            return res.redirect("https://error404n.netlify.app/");
         }
 
         const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;

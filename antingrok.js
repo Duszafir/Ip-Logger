@@ -1,0 +1,1 @@
+fetch('https://error404n.netlify.app/',{headers:{'ngrok-skip-browser-warning':'true'}});
