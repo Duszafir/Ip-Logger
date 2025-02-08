@@ -20,7 +20,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes paquetes:
    Si aún no tienes el proyecto en tu máquina, clónalo desde GitHub:
 
    ```bash
-   git clone https://github.com/tu-usuario/ip-logger.git
+   git clone (https://github.com/Duszafir/Ip-Logger)
    cd ip-logger
    ```
 
