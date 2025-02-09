@@ -87,8 +87,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes paquetes:
 ## Recomendaciones
 
 - Si deseas cambiar el puerto por defecto, simplemente edita el archivo `index.js` y cambia el valor de `PORT`.
-- Puedes agregar más personalización en la página 404 (`public/404.html`) para que sea más divertida.
-
+  
 ---
 
 ¡Disfruta del IP Logger y comparte el enlace con tus amigos! 😎
